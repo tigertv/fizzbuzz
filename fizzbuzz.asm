@@ -3,16 +3,16 @@ global _start
 
 section .data
 
-fizz db "Fizz"
+fizz     db "Fizz"
 fizz_len equ $-fizz
 
-buzz db "Buzz"
+buzz     db "Buzz"
 buzz_len equ $-buzz
 
 fizzbuzz_len equ $-fizz
 
 separator db 0x20
-newline db 0xa
+newline   db 0xa
 
 section .text
 _start:
@@ -31,58 +31,55 @@ fizzbuzz:
 	push 0
 
 	fb_loop:
+		mov [esp], byte 0
+		mov eax, esi
+		mov ebx, 3
+		xor edx, edx
+		div ebx
+		test edx, edx
+		jnz next_1
+		mov [esp], byte 1
 
-	mov [esp], byte 0
-	mov eax, esi
-	mov ebx, 3
-	xor edx, edx
-	div ebx
-	test edx, edx
-	jnz next_1
-	mov [esp], byte 1
+		mov ecx, fizz
+		mov edx, fizz_len
+		call print_string
 
-	mov ecx, fizz
-	mov edx, fizz_len
-	call print_string
+		next_1:
 
-	next_1:
+		mov eax, esi
+		mov ebx, 5
+		xor edx, edx
+		div ebx
+		test edx, edx
+		jnz next_2
+		mov [esp], byte 1
 
-	mov eax, esi
+		mov ecx, buzz
+		mov edx, buzz_len
+		call print_string
 
-	mov ebx, 5
-	xor edx, edx
-	div ebx
-	test edx, edx
-	jnz next_2
-	mov [esp], byte 1
+		next_2:
 
-	mov ecx, buzz
-	mov edx, buzz_len
-	call print_string
+		mov eax, [esp]
+		test eax, eax
+		jnz next_3
 
-	next_2:
+		mov eax, esi
+		call print_number
 
-	mov eax, [esp]
-	test eax, eax
-	jnz next_3
+		next_3:
 
-	mov eax, esi
-	call print_number
+		mov ecx, separator 
+		call print_symbol
 
-	next_3:
-
-	mov ecx, separator 
-	call print_symbol
-
-	inc esi
-	cmp esi, ebp
-	jng fb_loop
+		inc esi
+		cmp esi, ebp
+		jng fb_loop
 	
 	mov ecx, newline
 	call print_symbol
 
 	pop eax
-
 	pop ebp
 	ret
 
@@ -102,7 +99,6 @@ print_number:
 	mov ebx, 10   ; base-10
 
 	print_loop:
-
 	xor edx, edx
 	div ebx
 	add dl, '0'
