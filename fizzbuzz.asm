@@ -93,7 +93,7 @@ print_string:
 
 print_number:
 	mov ecx, esp
-	sub esp, 12   ; reserve space for the number string, for base-2 it takes 33 bytes with new line, aligned by 4 bytes it takes 36 bytes.
+	sub esp, 12   ; reserve space for the number string
 
 	mov edi, 0
 	mov ebx, 10   ; base-10
