@@ -28,7 +28,6 @@ fizzbuzz:
 	push ebp
 	mov ebp, eax
 	mov esi, 1 
-	mov edi, 1 
 
 	push 0
 	push 0
@@ -38,11 +37,11 @@ fizzbuzz:
 		mov eax, [esp]
 		inc eax
 		mov [esp], eax
-		mov ebx, 0
+		xor ebx, ebx 
 		cmp eax, 3
 		jnz next_1
 
-		mov eax, 0
+		xor eax, eax
 		mov [esp], eax
 		
 		mov ecx, fizz
@@ -58,7 +57,7 @@ fizzbuzz:
 		cmp eax, 5
 		jnz next_2
 
-		mov eax, 0
+		xor eax, eax
 		mov [esp+4], eax
 
 		mov ecx, buzz
