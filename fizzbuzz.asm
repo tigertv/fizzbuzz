@@ -32,14 +32,14 @@ fizzbuzz:
 	push 0
 	push 0
 
-	fb_loop:
+	.loop:
 
 		mov eax, [esp]
 		inc eax
 		mov [esp], eax
 		xor ebx, ebx 
 		cmp eax, 3
-		jnz next_1
+		jnz .next_1
 
 		xor eax, eax
 		mov [esp], eax
@@ -49,13 +49,13 @@ fizzbuzz:
 		call print_string
 		mov ebx, 1
 
-		next_1:
+		.next_1:
 
 		mov eax, [esp+4]
 		inc eax
 		mov [esp+4], eax
 		cmp eax, 5
-		jnz next_2
+		jnz .next_2
 
 		xor eax, eax
 		mov [esp+4], eax
@@ -65,21 +65,22 @@ fizzbuzz:
 		call print_string
 		mov ebx, 1
 
-		next_2:
+		.next_2:
+
 		test ebx,ebx
-		jnz next_3
+		jnz .next_3
 
 		mov eax, esi
 		call print_number
 
-		next_3:
+		.next_3:
 
 		mov ecx, separator 
 		call print_symbol
 
 		inc esi
 		cmp esi, ebp
-		jng fb_loop
+		jng .loop
 	
 	mov ecx, newline
 	call print_symbol
@@ -105,15 +106,15 @@ print_number:
 	mov edi, 0
 	mov ebx, 10   ; base-10
 
-	print_loop:
-	xor edx, edx
-	div ebx
-	add dl, '0'
-	dec ecx
-	inc edi
-	mov [ecx],dl
-	test eax, eax
-	jnz print_loop
+	.loop:
+		xor edx, edx
+		div ebx
+		add dl, '0'
+		dec ecx
+		inc edi
+		mov [ecx],dl
+		test eax, eax
+		jnz .loop
 
 	mov edx, edi  ; length of the string
 	call print_string
