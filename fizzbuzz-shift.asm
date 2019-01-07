@@ -34,6 +34,7 @@ fizzbuzz:
 
 		mov ebx, 0xffff0000
 		and ebx, eax
+		jz .next_1
 		shr ebx, 16
 		and eax, 0x0000ffff
 		add eax, ebx
@@ -43,8 +44,11 @@ fizzbuzz:
 		and eax, 0x0000ffff
 		add eax, ebx
 
+		.next_1:
+
 		mov bx, 0xff00
 		and ebx, eax
+		jz .next_2
 		shr ebx, 8
 		and ax, 0x00ff
 		add eax, ebx
@@ -53,6 +57,8 @@ fizzbuzz:
 		shr ebx, 8
 		and ax, 0x00ff
 		add eax, ebx
+
+		.next_2:
 
 		mov bx, 0x00f0
 		and ebx, eax
@@ -66,14 +72,14 @@ fizzbuzz:
 		add eax, ebx
 
 		cmp al, 0x0f 
-		jne .next_2
+		jne .next_3
 
 		mov ecx, fizz
 		mov edx, fizzbuzz_len
 		call print_string
 		jmp .next_another
 
-		.next_2:
+		.next_3:
 
 		mov edx, eax
 		mov bx, 0x000c
@@ -88,14 +94,14 @@ fizzbuzz:
 		add eax, ebx
 
 		cmp al, 3
-		jnz .next_3
+		jnz .next_4
 
 		mov ecx, fizz
 		mov edx, fizz_len
 		call print_string
 		jmp .next_another
 
-		.next_3:
+		.next_4:
 		mov eax,edx
 
 		mov bx, 0x000c
@@ -104,14 +110,14 @@ fizzbuzz:
 		and eax, 0x0003
 
 		cmp eax, ebx
-		jne .next_4
+		jne .next_5
 
 		mov ecx, buzz
 		mov edx, buzz_len
 		call print_string
 		jmp .next_another
 
-		.next_4:
+		.next_5:
 
 		mov eax, esi
 		call print_number
