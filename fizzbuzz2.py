@@ -25,16 +25,8 @@ def fizzbuzz2(upper_limit=100):
         # divisible by 5 ?
         tmp = rmd
         do_pos = True
-        pos = 0
-        neg = 0
-
-        while tmp > 0:
-            if do_pos:
-                pos += tmp & 3 
-            else:
-                neg += tmp & 3 
-            tmp >>= 2 
-            do_pos = not do_pos
+        pos = tmp & 3
+        neg = (tmp >> 2) & 3
 
         if pos == neg:
             result[i] = 'Buzz'
