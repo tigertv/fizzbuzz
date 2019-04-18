@@ -1,5 +1,6 @@
 fizzbuzz
 fizzbuzz-div
 fizzbuzz-shift
+fizzbuzz-cpp
 *.o
 *.swp
